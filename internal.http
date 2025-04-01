@@ -1,0 +1,67 @@
+### 사용자 읽기
+GET http://{{host}}/api/v1/user
+
+### 사용자 읽기
+GET http://{{host}}/api/v1/user/4
+
+### 사용자 수정
+PUT http://{{host}}/api/v1/user/4
+Content-Type: application/json
+
+{
+  "name" : "-44니언",
+  "email": "-44nien.son@gmail.com"
+}
+
+### 사용자 생성
+POST http://{{host}}/api/v1/user
+Content-Type: application/json
+
+{
+  "name" : "New니언",
+  "email": "newnien.son@gmail.com"
+}
+
+### 사용자 삭제
+DELETE http://{{host}}/api/v1/user/1
+
+### 조지기 : 없는 사용자 조회
+GET http://{{host}}/api/v1/user/9999
+
+
+### 조지기 : 없는 사용자 고치기
+PUT http://{{host}}/api/v1/user/999
+Content-Type: application/json
+
+{
+  "name" : "999니언",
+  "email": "999nien.son@gmail.com"
+}
+
+### 조지기 : 없는 사용자 고치기 - 장애 또는 컨커런시 위배
+PUT http://{{host}}/api/v1/user/444
+Content-Type: application/json
+
+{
+  "name" : "999니언",
+  "email": "999nien.son@gmail.com"
+}
+
+### 조지기 : 수정 /w 필수값 누락
+PUT http://{{host}}/api/v1/user/4
+Content-Type: application/json
+
+{
+  "email": "999nien.son@gmail.com"
+}
+
+### 조지기 : 생성 /w 필수값 누락
+POST http://{{host}}/api/v1/user
+Content-Type: application/json
+
+{
+  "email": "999nien.son@gmail.com"
+}
+
+### 조지기 : 없는 사용자 삭제
+DELETE http://{{host}}/api/v1/user/999

@@ -2,6 +2,7 @@ package net.sonien.studio.simpleboot.internal.repository;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import net.sonien.studio.simpleboot.util.exception.RepositoryEntityNotExistException;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -40,7 +41,7 @@ public class UserRepositoryMockup implements UserRepository {
 
     @Override
     public Optional<User> create(User user) {
-        int nextId = this.users.keySet().stream().max(Integer::compareTo).orElse(0);
+        int nextId = this.users.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
         user.setId(nextId);
         this.users.put(user.getId(), user);
 
@@ -51,17 +52,21 @@ public class UserRepositoryMockup implements UserRepository {
     public Optional<User> update(int id, User user) {
         User target = this.users.get(id);
         if (target == null) {
-            return Optional.empty();
+            throw new RepositoryEntityNotExistException("USER", id);
         } else {
             user.setId(id);
             this.users.put(user.getId(), user);
-            return Optional.of(target);
+            return Optional.of(user);
         }
     }
 
     @Override
     public Optional<User> delete(int id) {
-        return Optional.ofNullable(this.users.remove(id));
-
+        User user = this.users.remove(id);
+        if (user == null) {
+            throw new RepositoryEntityNotExistException("USER", id);
+        } else {
+            return Optional.of(user);
+        }
     }
 }

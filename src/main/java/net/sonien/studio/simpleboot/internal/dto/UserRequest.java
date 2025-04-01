@@ -3,6 +3,7 @@ package net.sonien.studio.simpleboot.internal.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.mapstruct.Mapper;
 
 @Builder
 @Getter
